@@ -17,3 +17,11 @@
   flex-direction: column;
   gap: var(--space-6);
 }
+
+/* Clear the fixed bottom tab bar on narrow screens. */
+@media (max-width: 760px) {
+  .main {
+    padding: 24px var(--page-gutter)
+      calc(84px + env(safe-area-inset-bottom, 0px));
+  }
+}

@@ -55,6 +55,12 @@
   background: var(--color-surface-muted);
 }
 
+.linkIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .linkActive {
   background: var(--color-ink);
   color: var(--color-on-dark);
@@ -93,28 +99,69 @@
   color: var(--color-ink-muted);
 }
 
-/* Collapse to a top bar on narrow screens. */
+/* Become a fixed, icon-only bottom tab bar on narrow screens (native-app feel). */
 @media (max-width: 760px) {
   .sidebar {
-    flex-basis: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    flex-direction: row;
     border-right: 0;
-    border-bottom: 1px solid var(--color-border);
-    padding: 14px 16px 10px;
-    gap: 12px;
+    border-top: 1px solid var(--color-border);
+    /* Extra bottom padding clears the home indicator on notched phones. */
+    padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px));
+    gap: 0;
+  }
+
+  /* Hide the brand and streak — the tab bar shows navigation only. */
+  .brand,
+  .streak {
+    display: none;
   }
 
   .links {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    margin: 0 -16px;
-    padding: 0 16px 4px;
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0;
   }
 
   .link {
     flex: none;
+    flex-direction: column;
+    gap: 0;
+    min-height: 52px;
+    padding: 0;
+    border-radius: 0;
+    color: var(--color-ink-muted);
   }
 
-  .streak {
+  .link:hover {
+    background: transparent;
+  }
+
+  /* Hide text labels — icons only. The accessible name is kept via aria-label. */
+  .linkLabel {
     display: none;
+  }
+
+  /* Active = a rounded ink pill behind the icon. */
+  .linkActive,
+  .linkActive:hover {
+    background: transparent;
+    color: var(--color-on-dark);
+  }
+
+  .linkIcon {
+    min-width: 48px;
+    height: 32px;
+    border-radius: var(--radius-pill);
+    transition: background 0.15s ease;
+  }
+
+  .linkActive .linkIcon {
+    background: var(--color-ink);
   }
 }

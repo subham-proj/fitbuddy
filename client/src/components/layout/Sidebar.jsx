@@ -24,12 +24,15 @@ function Sidebar({ streakDays = 12 }) {
             key={to}
             to={to}
             end={end}
+            aria-label={label}
             className={({ isActive }) =>
               `${styles.link} ${isActive ? styles.linkActive : ''}`
             }
           >
-            <Icon size={18} strokeWidth={2} aria-hidden="true" />
-            {label}
+            <span className={styles.linkIcon}>
+              <Icon size={18} strokeWidth={2} aria-hidden="true" />
+            </span>
+            <span className={styles.linkLabel}>{label}</span>
           </NavLink>
         ))}
       </div>
