@@ -1,0 +1,44 @@
+.chart {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--space-3);
+  align-items: end;
+  height: 240px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  height: 100%;
+}
+
+.value {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-ink-2);
+}
+
+.bar {
+  width: 100%;
+  max-width: 48px;
+  background: var(--color-ink);
+  border-radius: 10px 10px 4px 4px;
+  transition: height 0.3s ease;
+}
+
+.today {
+  background: var(--color-lime);
+}
+
+.day {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-ink-muted);
+}
+
+.dayToday {
+  font-weight: 700;
+}

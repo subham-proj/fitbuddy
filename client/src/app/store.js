@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import counterReducer from '../features/counter/counterSlice';
 import workoutsReducer from '../features/workouts/workoutsSlice';
 
 /**
@@ -8,10 +7,12 @@ import workoutsReducer from '../features/workouts/workoutsSlice';
  *
  * Register feature reducers here. Each feature owns a slice and exposes its
  * reducer as the default export (see `src/features/*`).
+ *
+ * Note: the dashboard UI currently reads from mock fixtures (`src/mock/`),
+ * not the store. The workouts slice is wired for when the API is connected.
  */
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     workouts: workoutsReducer,
   },
 });

@@ -1,0 +1,28 @@
+.group {
+  display: flex;
+  gap: var(--space-1);
+  background: var(--color-surface-muted);
+  padding: var(--space-1);
+  border-radius: var(--radius-md);
+}
+
+.segment {
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-ink-muted);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.selected {
+  background: var(--color-surface);
+  color: var(--color-ink);
+}

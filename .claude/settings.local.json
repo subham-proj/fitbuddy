@@ -13,7 +13,9 @@
       "Bash(git remote *)",
       "Bash(git push *)",
       "Bash(npm audit *)",
-      "Bash(git -c user.name=subham-proj -c user.email=subham.dev20@gmail.com commit -m 'Restructure into client/ + Express server monorepo with concurrent dev *)"
+      "Bash(git -c user.name=subham-proj -c user.email=subham.dev20@gmail.com commit -m 'Restructure into client/ + Express server monorepo with concurrent dev *)",
+      "Bash(rmdir components/.gitkeep)",
+      "Bash(rm -f components/.gitkeep)"
     ]
   }
 }
