@@ -1,25 +1,18 @@
 {
   "name": "fitbuddy",
-  "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "private": true,
+  "description": "FitBuddy — React (Vite) client + Express server monorepo.",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "oxlint",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@reduxjs/toolkit": "^2.13.0",
-    "react": "^19.3.1",
-    "react-dom": "^19.3.1",
-    "react-redux": "^9.3.0"
+    "dev": "concurrently -n client,server -c cyan,magenta \"npm run dev:client\" \"npm run dev:server\"",
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "build": "npm run build --prefix client",
+    "start": "npm run start --prefix server",
+    "lint": "npm run lint --prefix client",
+    "install:all": "npm install && npm install --prefix client && npm install --prefix server"
   },
   "devDependencies": {
-    "@types/react": "^19.3.0",
-    "@types/react-dom": "^19.3.0",
-    "@vitejs/plugin-react": "^6.1.2",
-    "oxlint": "^1.88.0",
-    "vite": "^8.3.4"
+    "concurrently": "^9.1.2"
   }
 }
