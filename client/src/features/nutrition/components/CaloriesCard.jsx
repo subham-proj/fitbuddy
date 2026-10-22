@@ -1,13 +1,19 @@
 import Card from '../../../components/ui/Card';
-import { calories } from '../../../mock/nutrition';
 import styles from './CaloriesCard.module.css';
 
 const RADIUS = 58;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
-/** Dark card: calorie budget donut + target/eaten/burned breakdown. */
-function CaloriesCard() {
-  const offset = CIRCUMFERENCE * (1 - calories.pct / 100);
+/**
+ * Dark card: calorie budget donut + target/eaten/burned breakdown.
+ *
+ * @param {object} props
+ * @param {{ target: number, eaten: number, burned: number, left: number, pct: number }} props.calories
+ */
+function CaloriesCard({ calories }) {
+  // Clamp the ring so an over-budget day doesn't overdraw the arc.
+  const ringPct = Math.max(0, Math.min(calories.pct, 100));
+  const offset = CIRCUMFERENCE * (1 - ringPct / 100);
 
   return (
     <Card tone="dark" className={styles.card}>
@@ -18,7 +24,7 @@ function CaloriesCard() {
           height="140"
           viewBox="0 0 140 140"
           role="img"
-          aria-label={`${calories.eaten.toLocaleString()} of ${calories.target.toLocaleString()} kcal eaten, ${calories.left} remaining`}
+          aria-label={`${calories.eaten.toLocaleString()} of ${calories.target.toLocaleString()} kcal eaten, ${calories.left.toLocaleString()} remaining`}
           className={styles.ring}
         >
           <g transform="rotate(-90 70 70)" fill="none" strokeWidth="14" strokeLinecap="round">
@@ -33,7 +39,7 @@ function CaloriesCard() {
             />
           </g>
           <text x="70" y="68" textAnchor="middle" className={styles.ringValue}>
-            {calories.left}
+            {calories.left.toLocaleString()}
           </text>
           <text x="70" y="90" textAnchor="middle" className={styles.ringLabel}>
             kcal left
@@ -50,7 +56,7 @@ function CaloriesCard() {
           </div>
           <div className={styles.stat}>
             <dt className={styles.statLabel}>Burned</dt>
-            <dd className={styles.statValue}>{calories.burned} kcal</dd>
+            <dd className={styles.statValue}>{calories.burned.toLocaleString()} kcal</dd>
           </div>
         </dl>
       </div>

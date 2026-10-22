@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import healthRoutes from './health.routes.js';
 import metricsRoutes from './metrics.routes.js';
+import nutritionRoutes from './nutrition.routes.js';
 import watchRoutes from './watch.routes.js';
 import workoutRoutes from './workout.routes.js';
 
@@ -15,5 +16,6 @@ router.use('/health', healthRoutes);
 router.use('/workouts', workoutRoutes);
 router.use('/watch', watchRoutes); // watch sync (write)
 router.use('/metrics', metricsRoutes); // dashboard reads
+router.use('/nutrition', nutritionRoutes); // manual food/water logging
 
 export default router;

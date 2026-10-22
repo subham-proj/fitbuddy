@@ -1,4 +1,4 @@
-import { Plus } from 'lucide-react';
+import { Plus, X } from 'lucide-react';
 
 import styles from './MealCard.module.css';
 
@@ -10,8 +10,10 @@ import styles from './MealCard.module.css';
  * @param {string} props.name
  * @param {string} props.meta
  * @param {{ id: string, name: string, detail: string, kcal: number }[]} props.items
+ * @param {() => void} [props.onAdd] - open the log-food flow for this meal
+ * @param {(id: string) => void} [props.onDeleteItem] - remove a logged item
  */
-function MealCard({ name, meta, items }) {
+function MealCard({ name, meta, items, onAdd, onDeleteItem }) {
   const empty = items.length === 0;
 
   if (empty) {
@@ -21,7 +23,7 @@ function MealCard({ name, meta, items }) {
           <h3 className={styles.name}>{name}</h3>
           <span className={styles.meta}>{meta}</span>
         </div>
-        <button type="button" className={styles.addCta}>
+        <button type="button" className={styles.addCta} onClick={onAdd}>
           Add {name.toLowerCase()}
         </button>
       </article>
@@ -39,6 +41,7 @@ function MealCard({ name, meta, items }) {
           type="button"
           aria-label={`Add to ${name.toLowerCase()}`}
           className={styles.addIcon}
+          onClick={onAdd}
         >
           <Plus size={18} strokeWidth={2.4} aria-hidden="true" />
         </button>
@@ -48,9 +51,21 @@ function MealCard({ name, meta, items }) {
           <li key={item.id} className={styles.item}>
             <span className={styles.itemText}>
               <b>{item.name}</b>
-              <span className={styles.itemDetail}>{item.detail}</span>
+              {item.detail && <span className={styles.itemDetail}>{item.detail}</span>}
             </span>
-            <span className={styles.itemKcal}>{item.kcal}</span>
+            <span className={styles.itemTrailing}>
+              <span className={styles.itemKcal}>{item.kcal}</span>
+              {onDeleteItem && (
+                <button
+                  type="button"
+                  className={styles.deleteItem}
+                  aria-label={`Remove ${item.name}`}
+                  onClick={() => onDeleteItem(item.id)}
+                >
+                  <X size={16} strokeWidth={2.2} aria-hidden="true" />
+                </button>
+              )}
+            </span>
           </li>
         ))}
       </ul>

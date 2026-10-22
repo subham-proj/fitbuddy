@@ -57,6 +57,7 @@
 .item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: var(--space-3);
   padding: 10px 0;
   border-top: 1px solid var(--color-divider);
@@ -72,8 +73,34 @@
   color: var(--color-ink-muted);
 }
 
+.itemTrailing {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: none;
+}
+
 .itemKcal {
   font-weight: 700;
+}
+
+.deleteItem {
+  width: 32px;
+  height: 32px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-ink-muted);
+  cursor: pointer;
+}
+
+.deleteItem:hover {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
 }
 
 /* Empty state */

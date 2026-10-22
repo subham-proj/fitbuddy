@@ -3,6 +3,13 @@
   font-weight: 600;
 }
 
+/* Loading / error placeholder */
+.state {
+  color: var(--color-ink-muted);
+  font-weight: 600;
+  margin: var(--space-2) 0;
+}
+
 /* Header with day navigation */
 .header {
   display: flex;
