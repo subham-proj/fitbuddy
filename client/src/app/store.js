@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import nutritionReducer from '../features/nutrition/nutritionSlice';
+import planReducer from '../features/workouts/planSlice';
 import workoutsReducer from '../features/workouts/workoutsSlice';
 
 /**
@@ -15,6 +16,7 @@ import workoutsReducer from '../features/workouts/workoutsSlice';
 export const store = configureStore({
   reducer: {
     workouts: workoutsReducer,
+    plan: planReducer,
     nutrition: nutritionReducer,
   },
 });

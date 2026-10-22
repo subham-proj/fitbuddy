@@ -6,6 +6,20 @@
   flex-direction: column;
   gap: 6px;
   border: 1px solid var(--color-border);
+  /* Reset button defaults — the card is a button. */
+  width: 100%;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.05s ease;
+}
+
+.card:hover {
+  border-color: var(--color-ink-muted);
+}
+
+.card:active {
+  transform: scale(0.99);
 }
 
 .top {
@@ -62,4 +76,17 @@
   background: var(--color-surface);
   color: var(--color-ink-muted);
   border-color: var(--color-border);
+}
+
+/* No plan set for this day — a dashed "add" affordance. */
+.empty {
+  background: transparent;
+  color: var(--color-ink-muted);
+  border-style: dashed;
+  border-color: var(--color-control-off);
+}
+
+.empty .name {
+  font-weight: 600;
+  color: var(--color-ink-muted);
 }

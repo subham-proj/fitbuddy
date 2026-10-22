@@ -33,6 +33,15 @@ export function shiftIsoDate(dateStr, deltaDays) {
   return toDateInputValue(dt);
 }
 
+/** The Monday (YYYY-MM-DD) of the week containing `dateStr`. */
+export function startOfWeekMonday(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dt = new Date(y, m - 1, d);
+  // getDay(): 0=Sun..6=Sat — shift so Monday is the first day.
+  const offset = (dt.getDay() + 6) % 7;
+  return shiftIsoDate(dateStr, -offset);
+}
+
 /**
  * Human day label for the nutrition header, relative where it helps:
  * "Today, 22 October", "Yesterday, 21 October", else "Thursday, 22 October".

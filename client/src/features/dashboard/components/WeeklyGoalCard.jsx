@@ -33,8 +33,8 @@ function WeeklyGoalCard() {
         <span className={styles.eyebrow}>Up next</span>
         <span className={styles.upNextTitle}>{upNext.title}</span>
         <span className={styles.upNextDetail}>{upNext.detail}</span>
-        <Link to="/workouts/session/t2" className={styles.start}>
-          Start session
+        <Link to="/workouts" className={styles.start}>
+          View this week
         </Link>
       </div>
     </Card>
