@@ -1,0 +1,96 @@
+.h2 {
+  font-size: var(--text-h2);
+  font-weight: 600;
+}
+
+/* Header with day navigation */
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.title {
+  font-size: var(--text-h1);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.dayNav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dayBtn {
+  width: var(--tap-min);
+  height: var(--tap-min);
+  border-radius: 50%;
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.dayBtn:hover {
+  background: var(--color-surface-muted);
+}
+
+.dayLabel {
+  font-weight: 700;
+  padding: 0 6px;
+}
+
+/* Top row: calories / macros / water */
+.topRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.panel {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.macroList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.waterHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.waterCount {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.waterHint {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+
+/* Meals */
+.mealsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-4);
+}

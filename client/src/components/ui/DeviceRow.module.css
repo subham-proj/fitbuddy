@@ -1,0 +1,37 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--color-divider);
+  flex-wrap: wrap;
+}
+
+.tile {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+
+.body {
+  flex: 1;
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-weight: 700;
+}
+
+.meta {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}

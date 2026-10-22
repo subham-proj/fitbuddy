@@ -1,0 +1,133 @@
+.h2 {
+  font-size: var(--text-h2);
+  font-weight: 600;
+}
+
+/* Week strip */
+.weekCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.weekHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.weekSummary {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+}
+
+.weekGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  gap: 10px;
+}
+
+/* Templates */
+.templatesSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.templatesHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.templatesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-4);
+}
+
+/* History table */
+.historyCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.historyHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.export {
+  font-weight: 600;
+  font-size: 14px;
+  min-height: var(--tap-min);
+  display: flex;
+  align-items: center;
+}
+
+.export:hover {
+  color: var(--color-ink-2);
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table thead tr {
+  text-align: left;
+  color: var(--color-ink-muted);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.table th {
+  padding: 10px 12px;
+  font-weight: 700;
+}
+
+.table th:first-child,
+.table td:first-child {
+  padding-left: 0;
+}
+
+.table th:last-child,
+.table td:last-child {
+  padding-right: 0;
+}
+
+.table tbody tr {
+  border-top: 1px solid var(--color-divider);
+}
+
+.table td {
+  padding: 14px 12px;
+}
+
+.cellMuted {
+  color: var(--color-ink-muted);
+}
+
+.cellStrong {
+  font-weight: 700;
+}

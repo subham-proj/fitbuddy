@@ -1,0 +1,135 @@
+.h2 {
+  font-size: var(--text-h2);
+  font-weight: 600;
+}
+
+.muted {
+  font-size: 14px;
+  color: var(--color-ink-muted);
+}
+
+.strong {
+  font-weight: 700;
+}
+
+/* Summary stat grid */
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+}
+
+.statLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+}
+
+.statValue {
+  font-family: var(--font-display);
+  font-size: var(--text-stat);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.statDelta {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink-2);
+}
+
+/* Rows */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.cardHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+/* Weight chart */
+.chartCard {
+  flex: 2 1 520px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  font-weight: 600;
+}
+
+/* Personal records */
+.prCard {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.prList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.prRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--color-divider);
+}
+
+.prName {
+  display: flex;
+  flex-direction: column;
+}
+
+.prValue {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+/* Muscle volume */
+.muscleCard {
+  flex: 1 1 340px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.muscleList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* Heatmap */
+.heatCard {
+  flex: 2 1 520px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}

@@ -1,0 +1,32 @@
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.value {
+  color: var(--color-ink-muted);
+  font-weight: 600;
+}
+
+.track {
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-divider);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+}

@@ -1,0 +1,55 @@
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: 14px;
+  background: transparent;
+}
+
+.current {
+  background: var(--color-dark-surface-2);
+}
+
+.marker {
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+
+.done .marker {
+  background: var(--color-lime);
+  color: var(--color-ink);
+}
+
+.current .marker {
+  background: var(--color-on-dark);
+  color: var(--color-ink);
+}
+
+.next .marker {
+  background: var(--color-dark-track);
+  color: var(--color-on-dark);
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-weight: 700;
+}
+
+.meta {
+  font-size: var(--text-sm);
+  color: var(--color-dark-muted);
+}

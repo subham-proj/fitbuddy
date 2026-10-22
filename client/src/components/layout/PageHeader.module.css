@@ -24,6 +24,11 @@
   letter-spacing: -0.02em;
 }
 
+.subtitle {
+  font-size: var(--text-base);
+  color: var(--color-ink-muted);
+}
+
 .actions {
   display: flex;
   gap: 10px;

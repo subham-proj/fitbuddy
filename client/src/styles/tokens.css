@@ -28,7 +28,12 @@
   --color-violet: #8b7cff; /* stand ring, fat, heart rate */
   --color-violet-soft: #d9d3ff;
   --color-olive: #9dbf1e;
+  --color-heat-1: #ddf58a; /* heatmap low-activity level */
   --color-water: #5aa7f0;
+  --color-water-stroke: #2f6fb0; /* water glass outline when logged */
+  --color-water-surface: #eef7ff; /* logged water glass fill bg */
+  --color-water-border: #9cc7f2;
+  --color-control-off: #c9cdc2; /* unfilled control outline / switch track off */
   --color-danger: #b3361b;
 
   /* Avatar chip tints used in workout rows */
@@ -43,6 +48,8 @@
   --color-dark-line: #22262c;
   --color-dark-track: #2a2e35;
   --color-dark-muted: #a3a8b0;
+  --color-dark-success: #1f2a10; /* logged set cell on dark session screen */
+  --color-dark-dashed: #3a3f47; /* dashed add buttons on dark screen */
 
   /* Type */
   --font-display: 'Space Grotesk', system-ui, sans-serif;
