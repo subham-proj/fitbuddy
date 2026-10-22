@@ -32,4 +32,13 @@ export const settingsService = {
     const settings = await this.get(userId);
     return settings.targets;
   },
+
+  /** Mirror the latest weigh-in into the profile without touching other fields. */
+  setWeight(userId, weightKg) {
+    return UserSettings.findOneAndUpdate(
+      { userId },
+      { $set: { 'bodyMetrics.weightKg': weightKg } },
+      { upsert: true, setDefaultsOnInsert: true },
+    ).exec();
+  },
 };

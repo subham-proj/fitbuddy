@@ -8,6 +8,14 @@
   color: var(--color-ink-muted);
 }
 
+/* Empty-state copy inside a card */
+.empty {
+  color: var(--color-ink-muted);
+  font-size: 14px;
+  font-weight: 500;
+  margin: var(--space-2) 0;
+}
+
 .strong {
   font-weight: 700;
 }
