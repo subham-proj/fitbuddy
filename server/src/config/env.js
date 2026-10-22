@@ -35,6 +35,44 @@ export const env = {
   port: Number(process.env.PORT) || 4000,
   clientOrigin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
   mongoUri: resolveMongoUri(),
+  // Shared secret the watch's phone-side service sends as `x-api-key`.
+  watchKey: process.env.WATCH_KEY || '',
+  // Single-user deployment: every watch sync is attributed to this user id.
+  ownerUserId: process.env.OWNER_USER_ID || 'owner',
+  // Number of proxies in front of the app (ngrok, nginx, a PaaS router…).
+  // Set TRUST_PROXY=1 when running behind a tunnel/proxy so rate limiting can
+  // read the real client IP. Defaults to 1 in production, 0 in development.
+  trustProxy: Number(
+    process.env.TRUST_PROXY ??
+      (process.env.NODE_ENV === 'production' ? 1 : 0),
+  ),
 };
 
 export const isProduction = env.nodeEnv === 'production';
+
+/**
+ * Fail fast on misconfiguration before the server starts accepting traffic.
+ * Called once at startup. In production we refuse to boot with a missing or
+ * weak watch secret, since that endpoint is internet-facing and accepts writes.
+ */
+export function validateConfig() {
+  const errors = [];
+
+  if (!env.mongoUri) {
+    errors.push('MONGO_URI (or MONGO_USERNAME/PASSWORD) is not set.');
+  }
+
+  if (isProduction) {
+    if (!env.watchKey) {
+      errors.push('WATCH_KEY must be set in production.');
+    } else if (env.watchKey.length < 24) {
+      errors.push('WATCH_KEY is too weak — use at least 24 random characters.');
+    } else if (/dev-watch-key|replace_me|changeme|test/i.test(env.watchKey)) {
+      errors.push('WATCH_KEY still looks like a placeholder — set a real secret.');
+    }
+  }
+
+  if (errors.length) {
+    throw new Error(`Invalid configuration:\n  - ${errors.join('\n  - ')}`);
+  }
+}

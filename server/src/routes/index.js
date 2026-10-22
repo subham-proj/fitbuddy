@@ -1,6 +1,8 @@
 import { Router } from 'express';
 
 import healthRoutes from './health.routes.js';
+import metricsRoutes from './metrics.routes.js';
+import watchRoutes from './watch.routes.js';
 import workoutRoutes from './workout.routes.js';
 
 const router = Router();
@@ -11,5 +13,7 @@ const router = Router();
  */
 router.use('/health', healthRoutes);
 router.use('/workouts', workoutRoutes);
+router.use('/watch', watchRoutes); // watch sync (write)
+router.use('/metrics', metricsRoutes); // dashboard reads
 
 export default router;

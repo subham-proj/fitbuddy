@@ -1,11 +1,12 @@
 import app from './app.js';
 import { connectDB, disconnectDB } from './config/db.js';
-import { env } from './config/env.js';
+import { env, validateConfig } from './config/env.js';
 
 let server;
 
 async function start() {
   try {
+    validateConfig();
     await connectDB();
 
     server = app.listen(env.port, () => {
