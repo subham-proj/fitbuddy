@@ -1,6 +1,7 @@
 import { Plus } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import PageHeader from '../../components/layout/PageHeader';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
@@ -8,35 +9,66 @@ import FilterChip from '../../components/ui/FilterChip';
 import WeekDayCard from '../../components/ui/WeekDayCard';
 import WorkoutTemplateCard from '../../components/ui/WorkoutTemplateCard';
 import {
-  history,
+  formatDate,
+  formatDuration,
+  formatKcal,
+  formatVolume,
+} from '../../utils/format';
+// NOTE: `week` and `templates` are still mock fixtures — the weekly plan and
+// saved templates are separate features, wired in a later pass. Only the
+// History table below is backed by the API in this pass.
+import {
   templates,
   typeChipColor,
   typeFilters,
   week,
   weekSummary,
 } from '../../mock/workouts';
+import LogWorkoutModal from './components/LogWorkoutModal';
+import {
+  fetchWorkouts,
+  selectWorkouts,
+  selectWorkoutsError,
+  selectWorkoutsStatus,
+} from './workoutsSlice';
 import styles from './WorkoutsPage.module.css';
 
-/** Workouts (route "/workouts"). Plan, start, and review workouts. */
+const HISTORY_COLS = 6;
+
+/** Workouts (route "/workouts"). Plan, log, and review workouts. */
 function WorkoutsPage() {
+  const dispatch = useAppDispatch();
   const [filter, setFilter] = useState('All');
+  const [logOpen, setLogOpen] = useState(false);
+
+  const workouts = useAppSelector(selectWorkouts);
+  const status = useAppSelector(selectWorkoutsStatus);
+  const error = useAppSelector(selectWorkoutsError);
+
+  // Load the owner's logged workouts once.
+  useEffect(() => {
+    if (status === 'idle') dispatch(fetchWorkouts());
+  }, [status, dispatch]);
 
   const visibleTemplates =
     filter === 'All' ? templates : templates.filter((t) => t.type === filter);
+
+  const loading = status === 'loading' || status === 'idle';
 
   return (
     <>
       <PageHeader
         title="Workouts"
-        subtitle="Plan your week, start a session and review what you've done."
+        subtitle="Plan your week, log a session and review what you've done."
         actions={
           <>
             <Button variant="secondary">Browse programs</Button>
             <Button
               variant="primary"
+              onClick={() => setLogOpen(true)}
               leadingIcon={<Plus size={18} strokeWidth={2.4} aria-hidden="true" />}
             >
-              Create workout
+              Log workout
             </Button>
           </>
         }
@@ -101,20 +133,48 @@ function WorkoutsPage() {
               </tr>
             </thead>
             <tbody>
-              {history.map((row) => (
-                <tr key={row.id}>
-                  <td className={styles.cellMuted}>{row.date}</td>
-                  <td className={styles.cellStrong}>{row.name}</td>
-                  <td>{row.duration}</td>
-                  <td>{row.volume}</td>
-                  <td>{row.kcal}</td>
-                  <td className={styles.cellStrong}>{row.prs}</td>
+              {loading && (
+                <tr>
+                  <td colSpan={HISTORY_COLS} className={styles.cellMuted}>
+                    Loading workouts…
+                  </td>
                 </tr>
-              ))}
+              )}
+
+              {!loading && error && (
+                <tr>
+                  <td colSpan={HISTORY_COLS} className={styles.cellMuted}>
+                    Couldn’t load workouts: {error}
+                  </td>
+                </tr>
+              )}
+
+              {!loading && !error && workouts.length === 0 && (
+                <tr>
+                  <td colSpan={HISTORY_COLS} className={styles.cellMuted}>
+                    No workouts logged yet. Use “Log workout” to add your first one.
+                  </td>
+                </tr>
+              )}
+
+              {!loading &&
+                !error &&
+                workouts.map((w) => (
+                  <tr key={w.id}>
+                    <td className={styles.cellMuted}>{formatDate(w.performedAt)}</td>
+                    <td className={styles.cellStrong}>{w.title}</td>
+                    <td>{formatDuration(w.durationMin)}</td>
+                    <td>{formatVolume(w.volumeKg)}</td>
+                    <td>{formatKcal(w.caloriesBurned)}</td>
+                    <td className={styles.cellStrong}>—</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
       </Card>
+
+      <LogWorkoutModal open={logOpen} onClose={() => setLogOpen(false)} />
     </>
   );
 }

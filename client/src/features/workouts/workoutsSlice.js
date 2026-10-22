@@ -32,6 +32,10 @@ export const deleteWorkout = createAsyncThunk(
   },
 );
 
+/** Newest workout first — matches the server's `-performedAt` ordering. */
+const byPerformedAtDesc = (a, b) =>
+  new Date(b.performedAt) - new Date(a.performedAt);
+
 const initialState = {
   items: [],
   status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -57,7 +61,9 @@ const workoutsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(createWorkout.fulfilled, (state, action) => {
-        state.items.unshift(action.payload);
+        // Insert then re-sort so a back-dated workout lands in the right place.
+        state.items.push(action.payload);
+        state.items.sort(byPerformedAtDesc);
       })
       .addCase(deleteWorkout.fulfilled, (state, action) => {
         state.items = state.items.filter((w) => w.id !== action.payload);
