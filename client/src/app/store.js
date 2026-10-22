@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import achievementsReducer from '../features/goals/achievementsSlice';
 import goalsReducer from '../features/goals/goalsSlice';
 import nutritionReducer from '../features/nutrition/nutritionSlice';
+import settingsReducer from '../features/settings/settingsSlice';
 import planReducer from '../features/workouts/planSlice';
 import workoutsReducer from '../features/workouts/workoutsSlice';
 
@@ -22,5 +23,6 @@ export const store = configureStore({
     nutrition: nutritionReducer,
     goals: goalsReducer,
     achievements: achievementsReducer,
+    settings: settingsReducer,
   },
 });

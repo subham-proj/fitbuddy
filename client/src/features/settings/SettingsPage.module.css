@@ -13,6 +13,12 @@
   font-weight: 600;
 }
 
+.state {
+  color: var(--color-ink-muted);
+  font-weight: 600;
+  margin: var(--space-2) 0;
+}
+
 .muted {
   font-size: 14px;
   color: var(--color-ink-muted);

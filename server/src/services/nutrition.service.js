@@ -1,13 +1,22 @@
-import { nutritionGoals } from '../config/nutritionGoals.js';
 import DailyMetric from '../models/DailyMetric.js';
 import FoodEntry, { MEALS } from '../models/FoodEntry.js';
 import WaterLog from '../models/WaterLog.js';
+import { settingsService } from './settings.service.js';
 
 const MACRO_KEYS = ['protein', 'carbs', 'fat', 'fibre'];
 
 /** Empty { breakfast: [], lunch: [], ... } accumulator. */
 function emptyMealGroups() {
   return MEALS.reduce((acc, meal) => ({ ...acc, [meal]: [] }), {});
+}
+
+/** Shape the flat settings targets into the day-view `goals` structure. */
+function goalsFromTargets(t) {
+  return {
+    calories: t.calories,
+    macros: { protein: t.protein, carbs: t.carbs, fat: t.fat, fibre: t.fibre },
+    water: { goalGlasses: t.waterGlasses, glassMl: t.glassMl },
+  };
 }
 
 /**
@@ -19,10 +28,11 @@ function emptyMealGroups() {
 export const nutritionService = {
   /** Compose the full day view: goals, totals, grouped meals and water. */
   async getDay(userId, date) {
-    const [entries, water, metric] = await Promise.all([
+    const [entries, water, metric, targets] = await Promise.all([
       FoodEntry.find({ userId, date }).sort({ loggedAt: 1 }).exec(),
       WaterLog.findOne({ userId, date }).exec(),
       DailyMetric.findOne({ userId, date }).select('calories').lean().exec(),
+      settingsService.getTargets(userId), // per-user nutrition targets
     ]);
 
     const meals = emptyMealGroups();
@@ -38,11 +48,11 @@ export const nutritionService = {
 
     // All-day calories burned as reported by the watch for this date, if any.
     const burned = Number(metric?.calories?.current) || 0;
-    const target = nutritionGoals.calories;
+    const target = targets.calories;
 
     return {
       date,
-      goals: nutritionGoals,
+      goals: goalsFromTargets(targets),
       summary: {
         target,
         eaten,

@@ -6,6 +6,7 @@ import healthRoutes from './health.routes.js';
 import metricsRoutes from './metrics.routes.js';
 import nutritionRoutes from './nutrition.routes.js';
 import planRoutes from './plan.routes.js';
+import settingsRoutes from './settings.routes.js';
 import watchRoutes from './watch.routes.js';
 import workoutRoutes from './workout.routes.js';
 
@@ -23,5 +24,6 @@ router.use('/metrics', metricsRoutes); // dashboard reads
 router.use('/nutrition', nutritionRoutes); // manual food/water logging
 router.use('/goals', goalRoutes);
 router.use('/achievements', achievementRoutes); // derived milestone badges
+router.use('/settings', settingsRoutes); // per-user profile, units, targets
 
 export default router;

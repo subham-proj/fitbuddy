@@ -11,6 +11,19 @@ export const syncWatch = asyncHandler(async (req, res) => {
   res.json({ ok: true });
 });
 
+/** GET /api/watch/status — whether the watch has synced, and when. */
+export const getWatchStatus = asyncHandler(async (req, res) => {
+  const latest = await dailyMetricService.findLatest(env.ownerUserId);
+  res.json({
+    data: {
+      connected: Boolean(latest),
+      lastDate: latest?.date ?? null,
+      lastSyncedAt: latest?.syncedAt ?? null,
+      updatedAt: latest?.updatedAt ?? null,
+    },
+  });
+});
+
 /** GET /api/metrics?from=&to= — lean list of daily metrics for the owner. */
 export const listMetrics = asyncHandler(async (req, res) => {
   const { from, to } = req.query;

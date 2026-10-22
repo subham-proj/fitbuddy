@@ -59,6 +59,26 @@ export function formatDayLabel(dateStr) {
   return `${weekday}, ${rest}`;
 }
 
+const relFmt = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+
+/** Approximate relative time, e.g. "5 minutes ago", "yesterday". '' if empty. */
+export function formatRelativeTime(value) {
+  if (!value) return '';
+  const d = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(d.getTime())) return '';
+  const diffSec = Math.round((d.getTime() - Date.now()) / 1000);
+  const abs = Math.abs(diffSec);
+  const units = [
+    ['day', 86400],
+    ['hour', 3600],
+    ['minute', 60],
+  ];
+  for (const [unit, secs] of units) {
+    if (abs >= secs) return relFmt.format(Math.round(diffSec / secs), unit);
+  }
+  return 'just now';
+}
+
 /** Thousands-separated integer, e.g. 8450 → "8,450". */
 export function formatNumber(n) {
   return Number(n || 0).toLocaleString('en-US');

@@ -66,4 +66,13 @@ export const dailyMetricService = {
   findByDate(userId, date) {
     return DailyMetric.findOne({ userId, date }).exec();
   },
+
+  /** Most recently synced day (by server receipt time), or null. */
+  findLatest(userId) {
+    return DailyMetric.findOne({ userId })
+      .select('date syncedAt updatedAt')
+      .sort({ updatedAt: -1 })
+      .lean()
+      .exec();
+  },
 };
