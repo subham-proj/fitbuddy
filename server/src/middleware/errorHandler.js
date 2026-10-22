@@ -16,11 +16,26 @@ export function notFound(req, res, next) {
  */
 // eslint-disable-next-line no-unused-vars -- `next` required for Express to treat this as an error handler
 export function errorHandler(err, req, res, next) {
-  const status = err.statusCode || err.status || 500;
+  let status = err.statusCode || err.status || 500;
+  let message = err.message || 'Something went wrong.';
+
+  // Map common Mongoose errors to meaningful client-facing responses.
+  if (err.name === 'CastError') {
+    status = 400;
+    message = `Invalid ${err.path}: ${err.value}`;
+  } else if (err.name === 'ValidationError') {
+    status = 400;
+    message = Object.values(err.errors)
+      .map((e) => e.message)
+      .join(', ');
+  } else if (err.code === 11000) {
+    status = 409;
+    message = `Duplicate value for: ${Object.keys(err.keyValue).join(', ')}`;
+  }
 
   res.status(status).json({
     error: err.name || 'InternalServerError',
-    message: err.message || 'Something went wrong.',
+    message,
     ...(isProduction ? {} : { stack: err.stack }),
   });
 }
