@@ -1,5 +1,7 @@
 import { Router } from 'express';
 
+import achievementRoutes from './achievement.routes.js';
+import goalRoutes from './goal.routes.js';
 import healthRoutes from './health.routes.js';
 import metricsRoutes from './metrics.routes.js';
 import nutritionRoutes from './nutrition.routes.js';
@@ -19,5 +21,7 @@ router.use('/plan', planRoutes); // weekly plan
 router.use('/watch', watchRoutes); // watch sync (write)
 router.use('/metrics', metricsRoutes); // dashboard reads
 router.use('/nutrition', nutritionRoutes); // manual food/water logging
+router.use('/goals', goalRoutes);
+router.use('/achievements', achievementRoutes); // derived milestone badges
 
 export default router;

@@ -8,6 +8,13 @@
   color: var(--color-ink-muted);
 }
 
+/* Loading / empty placeholder */
+.state {
+  color: var(--color-ink-muted);
+  font-weight: 600;
+  margin: var(--space-2) 0;
+}
+
 /* Main goal hero (dark) */
 .hero {
   background: var(--color-ink);

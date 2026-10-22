@@ -19,10 +19,16 @@ const STATUS_TONE = {
  * @param {string} props.due
  * @param {'On track'|'Behind'|'Done'} props.status
  * @param {string} props.barColor - fill color (token var)
+ * @param {() => void} [props.onClick] - open the goal editor
  */
-function GoalCard({ area, title, progress, pct, due, status, barColor }) {
+function GoalCard({ area, title, progress, pct, due, status, barColor, onClick }) {
   return (
-    <article className={styles.card}>
+    <button
+      type="button"
+      className={styles.card}
+      onClick={onClick}
+      aria-label={`${title}. ${status}, ${progress}${due ? `, ${due}` : ''}. Edit goal`}
+    >
       <div className={styles.head}>
         <span className={styles.area}>{area}</span>
         <Badge tone={STATUS_TONE[status]}>{status}</Badge>
@@ -37,7 +43,7 @@ function GoalCard({ area, title, progress, pct, due, status, barColor }) {
           <span>{due}</span>
         </div>
       </div>
-    </article>
+    </button>
   );
 }
 
