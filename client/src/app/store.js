@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import dashboardReducer from '../features/dashboard/dashboardSlice';
 import achievementsReducer from '../features/goals/achievementsSlice';
 import goalsReducer from '../features/goals/goalsSlice';
 import nutritionReducer from '../features/nutrition/nutritionSlice';
@@ -12,13 +13,12 @@ import workoutsReducer from '../features/workouts/workoutsSlice';
  * The application's single Redux store.
  *
  * Register feature reducers here. Each feature owns a slice and exposes its
- * reducer as the default export (see `src/features/*`).
- *
- * Pages are migrated off the mock fixtures (`src/mock/`) onto these slices one
- * at a time; any page still on mock data simply doesn't read from the store.
+ * reducer as the default export (see `src/features/*`). Every page is now
+ * backed by the API through these slices.
  */
 export const store = configureStore({
   reducer: {
+    dashboard: dashboardReducer,
     workouts: workoutsReducer,
     plan: planReducer,
     nutrition: nutritionReducer,

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import achievementRoutes from './achievement.routes.js';
+import dashboardRoutes from './dashboard.routes.js';
 import goalRoutes from './goal.routes.js';
 import healthRoutes from './health.routes.js';
 import metricsRoutes from './metrics.routes.js';
@@ -27,5 +28,6 @@ router.use('/goals', goalRoutes);
 router.use('/achievements', achievementRoutes); // derived milestone badges
 router.use('/settings', settingsRoutes); // per-user profile, units, targets
 router.use('/progress', progressRoutes); // derived trends + body measurements
+router.use('/dashboard', dashboardRoutes); // composed landing-page view
 
 export default router;

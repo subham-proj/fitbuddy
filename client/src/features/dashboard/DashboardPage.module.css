@@ -4,6 +4,12 @@
   gap: var(--space-4);
 }
 
+.state {
+  color: var(--color-ink-muted);
+  font-weight: 600;
+  margin: var(--space-2) 0;
+}
+
 .row {
   display: flex;
   flex-wrap: wrap;
