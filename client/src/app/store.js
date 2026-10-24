@@ -6,6 +6,7 @@ import goalsReducer from '../features/goals/goalsSlice';
 import nutritionReducer from '../features/nutrition/nutritionSlice';
 import progressReducer from '../features/progress/progressSlice';
 import settingsReducer from '../features/settings/settingsSlice';
+import streakReducer from '../features/streak/streakSlice';
 import planReducer from '../features/workouts/planSlice';
 import workoutsReducer from '../features/workouts/workoutsSlice';
 
@@ -26,5 +27,6 @@ export const store = configureStore({
     achievements: achievementsReducer,
     settings: settingsReducer,
     progress: progressReducer,
+    streak: streakReducer,
   },
 });

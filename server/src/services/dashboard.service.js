@@ -2,6 +2,7 @@ import DailyMetric from '../models/DailyMetric.js';
 import Workout from '../models/Workout.js';
 import { planService } from './plan.service.js';
 import { settingsService } from './settings.service.js';
+import { streakFromDayKeys } from './streak.service.js';
 
 const pad = (n) => String(n).padStart(2, '0');
 const dayKey = (dateLike) => {
@@ -25,18 +26,6 @@ const volumeOf = (ex = []) =>
   ex.reduce((t, e) => t + (e.sets || 0) * (e.reps || 0) * (e.weightKg || 0), 0);
 
 const num = (v) => (Number.isFinite(Number(v)) ? Number(v) : 0);
-
-/** Current run of consecutive days with a workout, ending today (grace: yesterday). */
-function currentStreak(daySet, today) {
-  let cursor = daySet.has(today) ? today : shiftKey(today, -1);
-  if (!daySet.has(cursor)) return 0;
-  let n = 0;
-  while (daySet.has(cursor)) {
-    n += 1;
-    cursor = shiftKey(cursor, -1);
-  }
-  return n;
-}
 
 /**
  * Composes the dashboard from every data source: watch metrics (today's steps,
@@ -124,8 +113,10 @@ export const dashboardService = {
         }
       : null;
 
+    const streak = streakFromDayKeys([...daySet], today);
+
     return {
-      user: { name: settings.profile?.name || '', streakDays: currentStreak(daySet, today) },
+      user: { name: settings.profile?.name || '', streakDays: streak.current },
       stats: {
         steps: { value: steps, target: targets.steps },
         activeMinutes: { value: activeMinutes, target: targets.exerciseMin },

@@ -1,4 +1,4 @@
-/* Stride design tokens — single source of truth for the UI.
+/* FitBuddy design tokens — single source of truth for the UI.
    Fonts are loaded via <link> in index.html (not @import) for performance. */
 
 :root {

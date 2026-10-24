@@ -9,6 +9,7 @@ import nutritionRoutes from './nutrition.routes.js';
 import planRoutes from './plan.routes.js';
 import progressRoutes from './progress.routes.js';
 import settingsRoutes from './settings.routes.js';
+import streakRoutes from './streak.routes.js';
 import watchRoutes from './watch.routes.js';
 import workoutRoutes from './workout.routes.js';
 
@@ -29,5 +30,6 @@ router.use('/achievements', achievementRoutes); // derived milestone badges
 router.use('/settings', settingsRoutes); // per-user profile, units, targets
 router.use('/progress', progressRoutes); // derived trends + body measurements
 router.use('/dashboard', dashboardRoutes); // composed landing-page view
+router.use('/streak', streakRoutes); // workout streak stats
 
 export default router;
