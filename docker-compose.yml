@@ -1,0 +1,48 @@
+# FitBuddy — self-hosted stack.
+#
+#   docker compose up --build
+#
+# All runtime config comes from the root .env (see .env.docker.example).
+# By default the app connects to whatever MongoDB your .env points at —
+# e.g. MongoDB Atlas via MONGO_USERNAME/MONGO_PASSWORD/MONGO_HOST/MONGO_DB,
+# or a full MONGO_URI if you set one.
+#
+# Prefer a throwaway LOCAL MongoDB instead of Atlas? Run:
+#   docker compose --profile local-db up --build
+# ...and set MONGO_URI=mongodb://mongo:27017/fitbuddy in your .env.
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: fitbuddy:latest
+    restart: unless-stopped
+    ports:
+      - "${PORT:-4000}:4000"
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+    # Everything else (MONGO_*, WATCH_KEY, OWNER_USER_ID, CLIENT_ORIGIN,
+    # TRUST_PROXY) is read straight from .env and passed to the container.
+    env_file:
+      - .env
+
+  # Optional local MongoDB — only started with: --profile local-db
+  mongo:
+    image: mongo:7
+    profiles: ["local-db"]
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    # ports:
+    #   - "27017:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+volumes:
+  mongo-data:

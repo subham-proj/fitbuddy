@@ -1,0 +1,35 @@
+# Dependencies — reinstalled inside the image
+node_modules
+**/node_modules
+
+# Build output — regenerated during the build
+client/dist
+**/dist
+**/build
+
+# Environment / secrets — injected at runtime, never baked into the image
+.env
+**/.env
+.env.local
+**/.env.local
+.env.*.local
+
+# VCS & tooling
+.git
+.gitignore
+.claude
+
+# Design assets / unrelated apps not needed in the image
+figma
+watchsyncapp
+
+# Logs & OS cruft
+*.log
+npm-debug.log*
+.DS_Store
+**/.DS_Store
+
+# Docker files themselves
+Dockerfile
+.dockerignore
+docker-compose*.yml
