@@ -46,6 +46,9 @@ export const env = {
     process.env.TRUST_PROXY ??
       (process.env.NODE_ENV === 'production' ? 1 : 0),
   ),
+  // Optional override for where the built web app is served from in
+  // production. Defaults to ../../client/dist relative to the server.
+  clientDist: process.env.CLIENT_DIST || '',
 };
 
 export const isProduction = env.nodeEnv === 'production';
